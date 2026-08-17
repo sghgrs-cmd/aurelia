@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aurelia Smile Atelier Technology Studio — a tour of the precision instruments, hand-crafted ceramics lab, and digital engineering systems that make the perfect smile possible." />
+  <meta name="theme-color" content="#FDFCF8" />
+  <title>The Atelier Studio | Aurelia Smile Atelier</title>
+  <link rel="stylesheet" href="luxury.css" />
+</head>
+<body>
+
+  <div class="noise-overlay" aria-hidden="true"></div>
+  <div class="cursor-dot"  aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+  <div class="page-wipe" aria-hidden="true">
+    <div class="page-wipe__panel"></div><div class="page-wipe__panel"></div>
+    <div class="page-wipe__panel"></div><div class="page-wipe__panel"></div>
+    <div class="page-wipe__panel"></div>
+  </div>
+  <div class="page-wipe__accent" aria-hidden="true"></div>
+
+  
+
+  <!-- NAV -->
+  <nav class="site-nav" role="navigation" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-wordmark">
+        <span class="nav-wordmark__name">AURELIA</span>
+        <span class="nav-wordmark__sub">Smile Atelier</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Atelier</a>
+        <a href="treatments.html">Treatments</a>
+        <a href="results.html">Results</a>
+        <a href="studio.html" class="is-active">Studio</a>
+        <a href="booking.html">Booking</a>
+      </div>
+      <a href="booking.html" class="nav-cta btn-magnetic" data-cursor="hover">
+        <span class="btn-magnetic__text">Request Consultation</span>
+      </a>
+        <button id="mobile-menu-btn" aria-label="Toggle mobile menu" data-cursor="hover">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ═══ HERO ═══ -->
+    <section class="studio-hero pt-nav" aria-labelledby="studio-heading">
+      <!-- Ambient noise layer -->
+      <div class="studio-hero__noise" aria-hidden="true"></div>
+      <div class="container studio-hero__inner">
+        <span class="eyebrow fade-up" style="color:var(--champagne);letter-spacing:0.25em;">The Atelier Studio</span>
+        <div class="studio-hero__rule fade-up" style="transition-delay:60ms;" aria-hidden="true"></div>
+        <h1 id="studio-heading" class="display-xl fade-up studio-hero__title" style="transition-delay:120ms;" data-reveal="words">
+          The Science Behind<br/>the Smile.
+        </h1>
+        <p class="body-lg fade-up studio-hero__sub" style="transition-delay:280ms;">
+          Above Rodeo Drive, behind a private door, lives a ceramics lab and digital
+          engineering suite where every Aurelia case is born.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ CREDENTIAL BAR ═══ -->
+    <section class="studio-cred-bar" aria-label="Credentials">
+      <div class="container">
+        <div class="studio-cred-bar__inner">
+          <span class="studio-cred-bar__item">AACD Fellow</span>
+          <span class="studio-cred-bar__sep" aria-hidden="true"></span>
+          <span class="studio-cred-bar__item">ADA Member</span>
+          <span class="studio-cred-bar__sep" aria-hidden="true"></span>
+          <span class="studio-cred-bar__item">DSD Certified Practitioner</span>
+          <span class="studio-cred-bar__sep" aria-hidden="true"></span>
+          <span class="studio-cred-bar__item">3D Imaging Laboratory</span>
+          <span class="studio-cred-bar__sep" aria-hidden="true"></span>
+          <span class="studio-cred-bar__item">ISO 13485 Certified</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ STICKY SCROLL LAB TOUR ═══ -->
+    <section class="section-lg" aria-labelledby="lab-heading">
+      <div class="container">
+        <div class="sticky-scroll-section">
+
+          <!-- STICKY LEFT -->
+          <div class="sticky-col" data-reveal="slide-left">
+            <span class="eyebrow fade-up">Lab Technology</span>
+            <div class="divider-gold fade-up" style="transition-delay:60ms;"></div>
+            <h2 id="lab-heading" class="display-md fade-up" style="transition-delay:120ms;margin-bottom:var(--space-5);">
+              Instruments of<br/>Absolute Precision.
+            </h2>
+            <p class="body-lg fade-up" style="transition-delay:200ms;margin-bottom:var(--space-5);">
+              Every instrument in the Atelier was selected for a single reason: it is the
+              best of its kind on earth. We operate on the principle that superior results
+              require superior tools — no exceptions.
+            </p>
+            <p class="body-base fade-up" style="transition-delay:280ms;margin-bottom:var(--space-6);">
+              Scroll to tour each station of the Aurelia process.
+            </p>
+
+            <!-- Spec table -->
+            <div class="fade-up" style="transition-delay:360ms;border:var(--border-thin);border-radius:var(--radius-lg);overflow:hidden;">
+              <table style="width:100%;border-collapse:collapse;" aria-label="Technology specifications">
+                <thead>
+                  <tr style="background:var(--soft-cream);">
+                    <th style="padding:12px 16px;text-align:left;font-size:var(--text-xs);font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--espresso-40);border-bottom:var(--border-thin);">Capability</th>
+                    <th style="padding:12px 16px;text-align:right;font-size:var(--text-xs);font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--espresso-40);border-bottom:var(--border-thin);">Tolerance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom:var(--border-thin);">
+                    <td style="padding:12px 16px;font-size:var(--text-sm);color:var(--espresso);">3D Facial Scanning</td>
+                    <td style="padding:12px 16px;text-align:right;font-size:var(--text-sm);font-weight:600;color:var(--champagne);">±0.01mm</td>
+                  </tr>
+                  <tr style="border-bottom:var(--border-thin);">
+                    <td style="padding:12px 16px;font-size:var(--text-sm);color:var(--espresso);">Porcelain Veneer Thickness</td>
+                    <td style="padding:12px 16px;text-align:right;font-size:var(--text-sm);font-weight:600;color:var(--champagne);">0.3mm</td>
+                  </tr>
+                  <tr style="border-bottom:var(--border-thin);">
+                    <td style="padding:12px 16px;font-size:var(--text-sm);color:var(--espresso);">Kiln Temperature Precision</td>
+                    <td style="padding:12px 16px;text-align:right;font-size:var(--text-sm);font-weight:600;color:var(--champagne);">±1°C</td>
+                  </tr>
+                  <tr style="border-bottom:var(--border-thin);">
+                    <td style="padding:12px 16px;font-size:var(--text-sm);color:var(--espresso);">CAD/CAM Milling Accuracy</td>
+                    <td style="padding:12px 16px;text-align:right;font-size:var(--text-sm);font-weight:600;color:var(--champagne);">±0.005mm</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:12px 16px;font-size:var(--text-sm);color:var(--espresso);">Shade Matching Spectrum</td>
+                    <td style="padding:12px 16px;text-align:right;font-size:var(--text-sm);font-weight:600;color:var(--champagne);">24-bit</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div style="margin-top:var(--space-8);" class="fade-up" style="transition-delay:440ms;">
+              <a href="booking.html" class="btn-primary btn-magnetic" data-cursor="hover">
+                <span class="btn-magnetic__text">Experience It Yourself</span>
+              </a>
+              </div>
+          </div>
+
+          <!-- SCROLLING RIGHT COLUMN -->
+          <div class="scroll-col">
+
+            <!-- Item 1 -->
+            <div class="scroll-item">
+              <img
+                src="images/dentistholdingdigital3dscannermodernclinic.png"
+                alt="Macro photograph of a 3D intraoral scanner capturing dental impressions with blue laser light"
+                width="800" height="600"
+                loading="lazy"
+              />
+              <div class="scroll-item__caption">
+                <span class="eyebrow">Station 01</span>
+                <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:500;margin:var(--space-1) 0 var(--space-2);">
+                  3D Intraoral Scanning
+                </h3>
+                <p class="body-base" style="margin-bottom:var(--space-3);">
+                  Our 3Shape TRIOS 5 scanner captures a complete digital model of your
+                  dentition in under 90 seconds — accurate to 0.01mm, with full-colour
+                  surface texture capture for the ceramicist's reference.
+                </p>
+                <div class="tech-pills-wrap">
+                  <span class="tech-pill"><span class="tech-pill__dot"></span>3Shape TRIOS 5</span>
+                  <span class="tech-pill"><span class="tech-pill__dot"></span>±0.01mm Accuracy</span>
+                  <span class="tech-pill"><span class="tech-pill__dot"></span>Full Colour Capture</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="scroll-item">
+              <img
+                src="images/dentatechniciansculptingceramicteethmacro.png"
+                alt="Dental ceramicist in white coat meticulously layering porcelain powder under a precision light source"
+                width="800" height="600"
+                loading="lazy"
+              />
+              <div class="scroll-item__caption">
+                <span class="eyebrow">Station 02</span>
+                <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:500;margin:var(--space-1) 0 var(--space-2);">
+                  The Ceramicist's Hand
+                </h3>
+                <p class="body-base" style="margin-bottom:var(--space-3);">
+                  Master ceramicist Jacques Leroy — trained in Limoges, France — hand-layers
+                  each veneer using the powder-liquid brushing technique. Up to 14 individual
+                  firings per piece. No mill can replicate this.
+                </p>
+                <div class="tech-pills-wrap">
+                  <span class="tech-pill"><span class="tech-pill__dot"></span>Feldspathic Porcelain</span>
+                  <span class="tech-pill"><span class="tech-pill__dot"></span>14 Firings / Piece</span>
+                  <span class="tech-pill"><span class="tech-pill__dot"></span>0.3mm Thickness</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="scroll-item">
+              <img
+                src="images/hightechmedicaloverlaboratorglowingheat.png"
+                alt="Inside a dental ceramics kiln firing chamber at 960 degrees Celsius"
+                width="800" height="600"
+                loading="lazy"
+              />
+              <div class="scroll-item__caption">
+                <span class="eyebrow">Station 03</span>
+                <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:500;margin:var(--space-1) 0 var(--space-2);">
+                  Precision Kiln Firing
+                </h3>
+                <p class="body-base" style="margin-bottom:var(--space-3);">
+                  Our Ivoclar Programat CS4 kiln fires to 960°C with ±1°C variance.
+                  Temperature uniformity is the difference between a veneer that lasts
+                  ten years and one that lasts a lifetime.
+                </p>
+                <div class="tech-pills-wrap">
+                  <span class="tech-pill"><span class="tech-pill__dot"></span>Ivoclar Programat CS4</span>
+                  <span class="tech-pill"><span class="tech-pill__dot"></span>960°C Peak</span>
+                  <span class="tech-pill"><span class="tech-pill__dot"></span>±1°C Variance</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="scroll-item">
+              <img
+                src="images/appleprodisplayxdrmodernwhiteoffice.png"
+                alt="Digital Smile Design software showing before and after smile simulation on a calibrated 4K display"
+                width="800" height="600"
+                loading="lazy"
+              />
+              <div class="scroll-item__caption">
+                <span class="eyebrow">Station 04</span>
+                <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:500;margin:var(--space-1) 0 var(--space-2);">
+                  Digital Smile Design Suite
+                </h3>
+                <p class="body-base" style="margin-bottom:var(--space-3);">
+                  On a calibrated 4K display, Dr. Marchand and the client co-design the
+                  final smile together — adjusting tooth length, width, colour, and gum
+                  line in real time before a single tooth is prepared.
+                </p>
+                <div class="tech-pills-wrap">
+                  <span class="tech-pill"><span class="tech-pill__dot"></span>DSD Concept Pro</span>
+                  <span class="tech-pill"><span class="tech-pill__dot"></span>4K Display</span>
+                  <span class="tech-pill"><span class="tech-pill__dot"></span>Real-Time Rendering</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="scroll-item">
+              <img
+                src="images/macromedicalopticainstrumentwhite.png"
+                alt="Macro photograph of a spectrophotometer measuring precise shade colour of porcelain veneer"
+                width="800" height="600"
+                loading="lazy"
+              />
+              <div class="scroll-item__caption">
+                <span class="eyebrow">Station 05</span>
+                <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:500;margin:var(--space-1) 0 var(--space-2);">
+                  Spectrophotometric Shade Matching
+                </h3>
+                <p class="body-base" style="margin-bottom:var(--space-3);">
+                  We measure existing tooth translucency, fluorescence, and undertone
+                  using a Vita Easyshade V5 spectrophotometer — capturing 24-bit colour
+                  data invisible to the human eye — ensuring neighbouring teeth are
+                  indistinguishable from restorations.
+                </p>
+                <div class="tech-pills-wrap">
+                  <span class="tech-pill"><span class="tech-pill__dot"></span>Vita Easyshade V5</span>
+                  <span class="tech-pill"><span class="tech-pill__dot"></span>24-bit Colour</span>
+                  <span class="tech-pill"><span class="tech-pill__dot"></span>Fluorescence Capture</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /scroll-col -->
+
+        </div><!-- /sticky-scroll-section -->
+      </div>
+    </section>
+
+    
+
+    <!-- ═══ FINAL CTA ═══ -->
+    <section class="section-sm" style="background:var(--espresso);" aria-label="Book your consultation">
+      <div class="container" style="text-align:center;">
+        <h2 class="display-lg fade-up" style="color:var(--alabaster);margin-bottom:var(--space-4);max-width:640px;margin-left:auto;margin-right:auto;">
+          The Lab is Open.<br/>
+          <em style="font-style:italic;color:var(--champagne);">The Question is — Are You Ready?</em>
+        </h2>
+        <p class="body-lg fade-up" style="color:var(--platinum-60);max-width:480px;margin:0 auto var(--space-8);transition-delay:120ms;">
+          We accept a limited number of new clients each quarter.
+          Your consultation begins with a single decision.
+        </p>
+        <div class="fade-up" style="transition-delay:200ms;">
+          <a href="booking.html" class="btn-gold btn-magnetic" data-cursor="hover">
+            <span class="btn-magnetic__text">Apply for a Private Consultation</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-gold-line"></div>
+      <div class="footer-grid">
+        <div>
+          <p class="footer-brand__name">AURELIA</p>
+          <p class="footer-brand__tag">Smile Atelier</p>
+          <address class="footer-brand__address" style="font-style:normal;">
+            1234 Rodeo Drive, Penthouse Suite<br/>Beverly Hills, CA 90210<br/><br/>
+            <a href="tel:+13105550199" style="color:var(--champagne);text-decoration:none;">(310) 555-0199</a>
+          </address>
+        </div>
+        <div>
+          <p class="footer-col__title">Treatments</p>
+          <ul class="footer-links">
+            <li><a href="treatments.html">Digital Smile Design</a></li>
+            <li><a href="treatments.html">Holistic Whitening</a></li>
+            <li><a href="treatments.html">Mastercrafted Veneers</a></li>
+            <li><a href="treatments.html">Full-Mouth Reconstruction</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-col__title">Atelier</p>
+          <ul class="footer-links">
+            <li><a href="index.html">Philosophy</a></li>
+            <li><a href="studio.html">The Studio</a></li>
+            <li><a href="results.html">Before &amp; After</a></li>
+            <li><a href="booking.html">Consultations</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-col__title">Legal</p>
+          <ul class="footer-links">
+            <li><a href="javascript:void(0);">Privacy Policy</a></li>
+            <li><a href="javascript:void(0);">Terms of Service</a></li>
+            <li><a href="javascript:void(0);">Accessibility</a></li>
+            <li><a href="javascript:void(0);">CA HIPAA Notice</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Aurelia Smile Atelier. All rights reserved.</p>
+        <p>Serving the world's most discerning clientele since 2003.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="engine.js"></script>
+  
+
+  <!-- FULLSCREEN MOBILE MENU -->
+  <div class="mobile-overlay" id="mobile-menu" aria-hidden="true" style="background: rgba(253, 252, 248, 0.95); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);">
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <div class="mobile-overlay__header" style="position: relative; z-index: 10; padding: 2rem; display: flex; justify-content: space-between; align-items: center;">
+      <span class="nav-wordmark__name" style="color: var(--espresso); font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.1em;">AURELIA</span>
+      <button class="mobile-close" id="mobile-close" aria-label="Close menu" data-cursor="hover" style="color: var(--espresso); background: none; border: none; cursor: pointer;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="mobile-overlay__links" style="position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 70%; gap: 2rem;">
+      <a href="index.html" class="display-md" style="color: var(--espresso); text-decoration: none;">Atelier</a>
+      <a href="treatments.html" class="display-md" style="color: var(--espresso); text-decoration: none;">Treatments</a>
+      <a href="results.html" class="display-md" style="color: var(--espresso); text-decoration: none;">Results</a>
+      <a href="studio.html" class="display-md" style="color: var(--espresso); text-decoration: none;">Studio</a>
+      <a href="booking.html" class="display-md" style="color: var(--espresso); text-decoration: none;">Booking</a>
+    </div>
+  </div>
+
+</body>
+</html>

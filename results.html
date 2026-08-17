@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aurelia Smile Atelier client results — before and after gallery showcasing mastercrafted veneers, full-mouth reconstructions, and Hollywood smile transformations in Beverly Hills." />
+  <meta name="theme-color" content="#FDFCF8" />
+  <title>Client Results | Aurelia Smile Atelier</title>
+  <link rel="stylesheet" href="luxury.css" />
+</head>
+<body>
+
+  <div class="noise-overlay" aria-hidden="true"></div>
+  <div class="cursor-dot"  aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+  <div class="page-wipe" aria-hidden="true">
+    <div class="page-wipe__panel"></div><div class="page-wipe__panel"></div>
+    <div class="page-wipe__panel"></div><div class="page-wipe__panel"></div>
+    <div class="page-wipe__panel"></div>
+  </div>
+  <div class="page-wipe__accent" aria-hidden="true"></div>
+
+  
+
+  <!-- NAV -->
+  <nav class="site-nav" role="navigation" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-wordmark">
+        <span class="nav-wordmark__name">AURELIA</span>
+        <span class="nav-wordmark__sub">Smile Atelier</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Atelier</a>
+        <a href="treatments.html">Treatments</a>
+        <a href="results.html" class="is-active">Results</a>
+        <a href="studio.html">Studio</a>
+        <a href="booking.html">Booking</a>
+      </div>
+      <a href="booking.html" class="nav-cta btn-magnetic" data-cursor="hover">
+        <span class="btn-magnetic__text">Request Consultation</span>
+      </a>
+        <button id="mobile-menu-btn" aria-label="Toggle mobile menu" data-cursor="hover">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ═══ PAGE HERO ═══ -->
+    <section class="section-lg pt-nav" style="padding-bottom:var(--space-12);" aria-labelledby="results-heading">
+      <div class="container" style="text-align:center;">
+        <span class="eyebrow fade-up">Atelier Portfolio</span>
+        <div class="divider-gold fade-up" style="margin:var(--space-3) auto;transition-delay:60ms;"></div>
+        <h1 id="results-heading" class="display-xl fade-up" style="transition-delay:120ms;max-width:860px;margin:0 auto var(--space-4);">
+          The Evidence Speaks in<br/>
+          <em style="font-style:italic;color:var(--champagne);">Every Smile.</em>
+        </h1>
+        <p class="body-lg fade-up" style="max-width:580px;margin:0 auto;transition-delay:240ms;">
+          A curated selection of Atelier transformations — each a confidential
+          case study, each executed to the same ruthless standard.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ VIDEO FEATURE ═══ -->
+    <section class="section-sm" style="background:var(--warm-cream);" aria-label="Atelier documentary film">
+      <div class="container" style="max-width:960px;">
+        <div style="position:relative;border-radius:var(--radius-xl);overflow:hidden;aspect-ratio:16/9;box-shadow:var(--shadow-xl);" class="scale-up">
+          <video
+            src="aurelia-documentary.mp4#t=1"
+            style="width:100%;height:100%;object-fit:cover;display:block;"
+            preload="metadata"
+            muted
+            playsinline
+          ></video>
+          <!-- Frosted overlay gradient -->
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,21,20,0.55) 0%,transparent 60%);" aria-hidden="true"></div>
+          <!-- Caption -->
+          <div class="video-caption" style="position:absolute;bottom:var(--space-6);left:var(--space-6); pointer-events:none;">
+            <p class="eyebrow" style="color:var(--champagne);margin-bottom:var(--space-1);">Atelier Film</p>
+            <p class="video-title" style="font-family:var(--font-display);font-size:var(--text-2xl);font-weight:500;color:var(--alabaster);line-height:1.2;">Inside the Art of the<br/>Perfect Smile</p>
+          </div>
+          <!-- Play button -->
+          <button
+            class="play-btn"
+            data-modal-trigger
+            aria-label="Watch the Aurelia Atelier documentary — Inside the Art of the Perfect Smile"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ BEFORE / AFTER GALLERY ═══ -->
+    <section class="section" aria-labelledby="gallery-heading">
+      <div class="container">
+        <div class="section-header section-header--center">
+          <span class="eyebrow fade-up">Before &amp; After</span>
+          <div class="divider-gold fade-up" style="margin:var(--space-3) auto;transition-delay:60ms;"></div>
+          <h2 id="gallery-heading" class="display-md fade-up" style="transition-delay:120ms;">
+            Transformations That Defy Expectation.
+          </h2>
+        </div>
+
+        <div class="gallery-grid" data-stagger="80" data-stagger-target=".gallery-item">
+
+          <!-- Item 1 -->
+          <div class="gallery-item scale-up" style="transition-delay:0ms;" tabindex="0" role="img" aria-label="Full-mouth reconstruction result — client D.V., Hollywood actor">
+            <img
+              src="images/Full-Mouth-Reconstruction.png"
+              alt="Radiant full-mouth reconstruction result showing perfectly aligned white teeth"
+              width="600" height="750"
+              loading="lazy"
+            />
+            <div class="gallery-item__overlay">
+              <div>
+                <p class="gallery-item__caption">Full-Mouth Reconstruction</p>
+                <p style="color:rgba(253,252,248,0.6);font-size:var(--text-xs);letter-spacing:0.15em;text-transform:uppercase;margin-top:4px;">Client D.V. — 90-Day Protocol</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="gallery-item scale-up" style="transition-delay:80ms;" tabindex="0" role="img" aria-label="Mastercrafted veneers result — client C.M., entrepreneur">
+            <img
+              src="images/perfect-white-teeth-smile.png"
+              alt="Ten mastercrafted porcelain veneers showing natural translucency and perfect symmetry"
+              width="600" height="750"
+              loading="lazy"
+            />
+            <div class="gallery-item__overlay">
+              <div>
+                <p class="gallery-item__caption">Mastercrafted Veneers</p>
+                <p style="color:rgba(253,252,248,0.6);font-size:var(--text-xs);letter-spacing:0.15em;text-transform:uppercase;margin-top:4px;">Client C.M. — 10 Feldspathic Veneers</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="gallery-item scale-up" style="transition-delay:160ms;" tabindex="0" role="img" aria-label="Holistic whitening result — client R.T., philanthropist">
+            <img
+              src="images/macr lips-white-teeth-smile.png"
+              alt="Luminous bright smile after six-session holistic whitening protocol"
+              width="600" height="750"
+              loading="lazy"
+            />
+            <div class="gallery-item__overlay">
+              <div>
+                <p class="gallery-item__caption">Holistic Whitening</p>
+                <p style="color:rgba(253,252,248,0.6);font-size:var(--text-xs);letter-spacing:0.15em;text-transform:uppercase;margin-top:4px;">Client R.T. — 6-Session Programme</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="gallery-item scale-up" style="transition-delay:0ms;" tabindex="0" role="img" aria-label="Digital smile design preview — client A.K., CEO">
+            <img
+              src="images/businessman-smile-modern-office.png"
+              alt="Digital smile design consultation preview on a calibrated monitor"
+              width="600" height="750"
+              loading="lazy"
+            />
+            <div class="gallery-item__overlay">
+              <div>
+                <p class="gallery-item__caption">Digital Smile Design</p>
+                <p style="color:rgba(253,252,248,0.6);font-size:var(--text-xs);letter-spacing:0.15em;text-transform:uppercase;margin-top:4px;">Client A.K. — Design &amp; Execution</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="gallery-item scale-up" style="transition-delay:80ms;" tabindex="0" role="img" aria-label="Veneer and whitening combination — client L.S., fashion director">
+            <img
+              src="images/elegant-woman-laughing-bright-white-smile.png"
+              alt="Veneer and whitening combination case showing natural-looking Hollywood smile"
+              width="600" height="750"
+              loading="lazy"
+            />
+            <div class="gallery-item__overlay">
+              <div>
+                <p class="gallery-item__caption">Veneers + Whitening</p>
+                <p style="color:rgba(253,252,248,0.6);font-size:var(--text-xs);letter-spacing:0.15em;text-transform:uppercase;margin-top:4px;">Client L.S. — Combination Protocol</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 6 -->
+          <div class="gallery-item scale-up" style="transition-delay:160ms;" tabindex="0" role="img" aria-label="Full-mouth reconstruction — client M.K., Silicon Valley founder">
+            <img
+              src="images/senior-maperfec-teeth-healthy-smile.png"
+              alt="Complete smile transformation from full-mouth reconstruction programme"
+              width="600" height="750"
+              loading="lazy"
+            />
+            <div class="gallery-item__overlay">
+              <div>
+                <p class="gallery-item__caption">Full-Mouth Reconstruction</p>
+                <p style="color:rgba(253,252,248,0.6);font-size:var(--text-xs);letter-spacing:0.15em;text-transform:uppercase;margin-top:4px;">Client M.K. — The Pinnacle Protocol</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PROCESS TIMELINE ═══ -->
+    <section class="section" style="background:var(--warm-cream);" aria-labelledby="process-heading">
+      <div class="container" style="max-width:900px;">
+        <div class="section-header section-header--center">
+          <span class="eyebrow fade-up">The Aurelia Method</span>
+          <div class="divider-gold fade-up" style="margin:var(--space-3) auto;transition-delay:60ms;"></div>
+          <h2 id="process-heading" class="display-md fade-up" style="transition-delay:120ms;">
+            From First Consultation to Final Reveal.
+          </h2>
+        </div>
+
+        <div style="position:relative;" class="fade-up" style="transition-delay:200ms;">
+          <!-- Vertical line -->
+          <div style="position:absolute;left:19px;top:0;bottom:0;width:1px;background:var(--espresso-12);"></div>
+
+          <div style="display:flex;flex-direction:column;gap:var(--space-6);">
+
+            <div style="display:flex;gap:var(--space-5);align-items:flex-start;">
+              <div style="width:40px;height:40px;border-radius:9999px;background:var(--champagne);display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;">
+                <span style="font-family:var(--font-display);font-size:var(--text-sm);font-weight:700;color:var(--alabaster);">01</span>
+              </div>
+              <div style="padding-top:6px;">
+                <h3 class="display-sm" style="margin-bottom:var(--space-2);">Private Atelier Consultation</h3>
+                <p class="body-base">A 90-minute, white-glove session with Dr. Aurelia and the lead ceramicist. We photograph, scan, and analyse. No pressure. No upselling.</p>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:var(--space-5);align-items:flex-start;">
+              <div style="width:40px;height:40px;border-radius:9999px;background:var(--espresso);display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;">
+                <span style="font-family:var(--font-display);font-size:var(--text-sm);font-weight:700;color:var(--alabaster);">02</span>
+              </div>
+              <div style="padding-top:6px;">
+                <h3 class="display-sm" style="margin-bottom:var(--space-2);">Digital Smile Design Session</h3>
+                <p class="body-base">Facial mapping, digital rendering, and wax mock-up fitting. You approve every millimetre before we proceed.</p>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:var(--space-5);align-items:flex-start;">
+              <div style="width:40px;height:40px;border-radius:9999px;background:var(--espresso);display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;">
+                <span style="font-family:var(--font-display);font-size:var(--text-sm);font-weight:700;color:var(--alabaster);">03</span>
+              </div>
+              <div style="padding-top:6px;">
+                <h3 class="display-sm" style="margin-bottom:var(--space-2);">Atelier Lab Fabrication</h3>
+                <p class="body-base">Our master ceramicist hand-layers each porcelain component in the Atelier above Rodeo Drive. Timeline: 10–21 days per case.</p>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:var(--space-5);align-items:flex-start;">
+              <div style="width:40px;height:40px;border-radius:9999px;background:var(--champagne);display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;">
+                <span style="font-family:var(--font-display);font-size:var(--text-sm);font-weight:700;color:var(--alabaster);">04</span>
+              </div>
+              <div style="padding-top:6px;">
+                <h3 class="display-sm" style="margin-bottom:var(--space-2);">The Final Reveal</h3>
+                <p class="body-base">Placement, final polish, bite calibration, and your first look in the mirror. The moment everything changes.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-top:var(--space-10);" class="fade-up">
+          <a href="booking.html" class="btn-primary btn-magnetic" data-cursor="hover">
+            <span class="btn-magnetic__text">Begin Your Transformation</span>
+          </a>
+          </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ░░ VIDEO MODAL ░░ -->
+  <div class="modal-backdrop" id="video-modal" role="dialog" aria-modal="true" aria-label="Aurelia Atelier documentary film">
+    <div class="modal-inner">
+      <button class="modal-close" aria-label="Close film">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+          <path d="M1.5 1.5l15 15M16.5 1.5l-15 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="modal-video-wrap">
+        <!-- In a live deployment, replace src with an actual video URL -->
+        <video
+          controls
+          preload="auto"
+          style="width:100%; height:100%; background:var(--espresso); outline:none;"
+        >
+          <source src="aurelia-documentary.mp4" type="video/mp4" />
+          <p style="color:var(--platinum-60);padding:var(--space-6);font-family:var(--font-body);">
+            Your browser does not support HTML5 video.
+          </p>
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-gold-line"></div>
+      <div class="footer-grid">
+        <div>
+          <p class="footer-brand__name">AURELIA</p>
+          <p class="footer-brand__tag">Smile Atelier</p>
+          <address class="footer-brand__address" style="font-style:normal;">
+            1234 Rodeo Drive, Penthouse Suite<br/>Beverly Hills, CA 90210<br/><br/>
+            <a href="tel:+13105550199" style="color:var(--champagne);text-decoration:none;">(310) 555-0199</a>
+          </address>
+        </div>
+        <div>
+          <p class="footer-col__title">Treatments</p>
+          <ul class="footer-links">
+            <li><a href="treatments.html">Digital Smile Design</a></li>
+            <li><a href="treatments.html">Holistic Whitening</a></li>
+            <li><a href="treatments.html">Mastercrafted Veneers</a></li>
+            <li><a href="treatments.html">Full-Mouth Reconstruction</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-col__title">Atelier</p>
+          <ul class="footer-links">
+            <li><a href="index.html">Philosophy</a></li>
+            <li><a href="studio.html">The Studio</a></li>
+            <li><a href="results.html">Before &amp; After</a></li>
+            <li><a href="booking.html">Consultations</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-col__title">Legal</p>
+          <ul class="footer-links">
+            <li><a href="javascript:void(0);">Privacy Policy</a></li>
+            <li><a href="javascript:void(0);">Terms of Service</a></li>
+            <li><a href="javascript:void(0);">Accessibility</a></li>
+            <li><a href="javascript:void(0);">CA HIPAA Notice</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Aurelia Smile Atelier. All rights reserved.</p>
+        <p>Serving the world's most discerning clientele since 2003.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="engine.js"></script>
+
+  <!-- FULLSCREEN MOBILE MENU -->
+  <div class="mobile-overlay" id="mobile-menu" aria-hidden="true" style="background: rgba(253, 252, 248, 0.95); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);">
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <div class="mobile-overlay__header" style="position: relative; z-index: 10; padding: 2rem; display: flex; justify-content: space-between; align-items: center;">
+      <span class="nav-wordmark__name" style="color: var(--espresso); font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.1em;">AURELIA</span>
+      <button class="mobile-close" id="mobile-close" aria-label="Close menu" data-cursor="hover" style="color: var(--espresso); background: none; border: none; cursor: pointer;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="mobile-overlay__links" style="position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 70%; gap: 2rem;">
+      <a href="index.html" class="display-md" style="color: var(--espresso); text-decoration: none;">Atelier</a>
+      <a href="treatments.html" class="display-md" style="color: var(--espresso); text-decoration: none;">Treatments</a>
+      <a href="results.html" class="display-md" style="color: var(--espresso); text-decoration: none;">Results</a>
+      <a href="studio.html" class="display-md" style="color: var(--espresso); text-decoration: none;">Studio</a>
+      <a href="booking.html" class="display-md" style="color: var(--espresso); text-decoration: none;">Booking</a>
+    </div>
+  </div>
+
+</body>
+</html>
