@@ -22,7 +22,6 @@
 'use strict';
 
 /* ── CONSTANTS ─────────────────────────────────────────── */
-const LERP_FACTOR   = 0.15;    // ring follow speed
 const MAGNET_RANGE  = 96;      // px radius for magnetic pull
 const MAGNET_PULL   = 0.38;    // shell displacement factor
 const MAGNET_TEXT   = 0.18;    // inner text parallax factor
@@ -31,10 +30,15 @@ const STAGGER_CHAR  = 18;      // ms delay per char in reveal
 const CALC_DURATION = 600;     // ms for price counter animation
 const WIPE_DURATION = 720;     // ms for full page wipe in+out
 
-/* ── REDUCED MOTION GATE ────────────────────────────────── */
+/* ── REDUCED MOTION & POINTER GATES ─────────────────────── */
 const prefersReducedMotion = window.matchMedia(
   '(prefers-reduced-motion: reduce)'
 ).matches;
+const finePointer = window.matchMedia(
+  '(hover: hover) and (pointer: fine)'
+).matches;
+
+function lerp(a, b, t) { return a + (b - a) * t; }
 
 /* ═══════════════════════════════════════════════════════════
    1. NOISE OVERLAY
@@ -66,93 +70,323 @@ function initNoise() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   2. CUSTOM CURSOR — Lerp Ring + Instant Dot
-   Dot tracks exact mouse position via transform.
-   Ring lags behind using linear interpolation each rAF frame.
+   2. LUXURY CUSTOM CURSOR (Ported from Agoura Hills / Warren)
+   Dot (0.85) + Ring (0.14) with contextual #cur-label,
+   mix-blend-mode: difference, text I-beam morph, scrollbar
+   gutter stand-down, [data-cursor-off] boundary, and custom
+   middle-click autoscroll disc.
    ═══════════════════════════════════════════════════════════ */
 const Cursor = (() => {
-  if (prefersReducedMotion) return { init() {} };
+  let dot, ring, label, setStateFn, showFn, bindCursorOffFn;
+  let initialized = false;
 
-  let dot, ring;
-  let mouseX = window.innerWidth  / 2;
-  let mouseY = window.innerHeight / 2;
-  let ringX  = mouseX;
-  let ringY  = mouseY;
-  let rafId  = null;
-  let isHovering = false;
+  const CLICKY = 'a, button, [role="radio"], [role="checkbox"], [role="option"], [role="combobox"], label, summary, .treatment-card, .gallery-item, .goal-chip, .luxury-select-trigger, .luxury-select-option, .btn-magnetic, [data-modal-trigger], [data-cursor]';
+  const TEXTY  = 'input:not([type="hidden"]), textarea';
 
-  function lerp(a, b, t) { return a + (b - a) * t; }
-
-  function loop() {
-    ringX = lerp(ringX, mouseX, LERP_FACTOR);
-    ringY = lerp(ringY, mouseY, LERP_FACTOR);
-
-    if (dot) {
-      dot.style.left = `${mouseX}px`;
-      dot.style.top  = `${mouseY}px`;
+  function resolveCursorLabel(clicky) {
+    if (!clicky) return '';
+    if (clicky.hasAttribute('data-cursor')) {
+      const val = clicky.getAttribute('data-cursor');
+      if (val === '') return '';
+      if (val && val !== 'hover') return val;
     }
-
-    if (ring) {
-      ring.style.left = `${ringX}px`;
-      ring.style.top  = `${ringY}px`;
+    if (clicky.matches('.treatment-card')) {
+      return clicky.classList.contains('is-selected') ? 'Added' : 'Select';
     }
-
-    rafId = requestAnimationFrame(loop);
-  }
-
-  function onMouseMove(e) {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  }
-
-  function onMouseDown() { ring && ring.classList.add('is-clicking'); }
-  function onMouseUp()   { ring && ring.classList.remove('is-clicking'); }
-
-  function bindHoverTargets() {
-    document.querySelectorAll(
-      'a, button, [data-cursor="hover"], .treatment-card, .gallery-item, .goal-chip, .luxury-select-trigger, .luxury-select-option'
-    ).forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        isHovering = true;
-        ring && ring.classList.add('is-hovering');
-      });
-      el.addEventListener('mouseleave', () => {
-        isHovering = false;
-        ring && ring.classList.remove('is-hovering');
-      });
-    });
+    if (clicky.matches('[data-modal-trigger], .play-btn')) return 'Film';
+    if (clicky.matches('.gallery-item')) return 'View';
+    if (clicky.matches('a[href^="tel:"]')) return 'Call';
+    if (clicky.matches('button[type="submit"], #submit-btn')) return 'Send';
+    if (clicky.matches('[data-form-next]')) return 'Next';
+    if (clicky.matches('[data-form-back]')) return 'Back';
+    if (clicky.matches('.nav-cta, a.btn-primary[href*="booking"], a.btn-gold[href*="booking"]')) return 'Book';
+    if (clicky.matches('a.btn-primary[href*="studio"], a.btn-gold[href*="studio"]')) return 'Tour';
+    if (clicky.matches('a.btn-primary[href*="treatments"], a.btn-gold[href*="treatments"], #new-services-grid > a')) return 'Explore';
+    return '';
   }
 
   return {
     init() {
-      dot  = document.querySelector('.cursor-dot');
-      ring = document.querySelector('.cursor-ring');
+      if (initialized) return;
+      initialized = true;
+
+      // Clean up any legacy Aurelia cursor nodes if present
+      document.querySelectorAll('.cursor-dot, .cursor-ring').forEach(n => n.remove());
+
+      if (!finePointer || prefersReducedMotion) return;
+
+      dot   = document.getElementById('cur-dot');
+      ring  = document.getElementById('cur-ring');
+      label = document.getElementById('cur-label');
+
+      if (!ring) {
+        ring = document.createElement('span');
+        ring.id = 'cur-ring';
+        ring.setAttribute('aria-hidden', 'true');
+        label = document.createElement('span');
+        label.id = 'cur-label';
+        ring.appendChild(label);
+        document.body.appendChild(ring);
+      } else if (!label) {
+        label = document.createElement('span');
+        label.id = 'cur-label';
+        ring.appendChild(label);
+      }
 
       if (!dot) {
-        dot = document.createElement('div');
-        dot.className = 'cursor-dot';
+        dot = document.createElement('span');
+        dot.id = 'cur-dot';
+        dot.setAttribute('aria-hidden', 'true');
         document.body.appendChild(dot);
       }
-      if (!ring) {
-        ring = document.createElement('div');
-        ring.className = 'cursor-ring';
-        document.body.appendChild(ring);
-      }
 
-      if (!window._cursorInitialized) {
-        document.addEventListener('mousemove', onMouseMove, { passive: true });
-        document.addEventListener('mousedown', onMouseDown);
-        document.addEventListener('mouseup',   onMouseUp);
-        window._cursorInitialized = true;
-      }
+      const root = document.documentElement;
+      const hide = document.createElement('style');
+      hide.textContent = 'html, html *{cursor:none!important} [data-cursor-off], [data-cursor-off] *, :fullscreen, :fullscreen *, :-webkit-full-screen, :-webkit-full-screen *{cursor:auto!important} ::-webkit-scrollbar, ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-button, ::-webkit-scrollbar-corner, ::-webkit-resizer, textarea::-webkit-resizer{cursor:none!important} html.autoscroll-on #cur-dot, html.autoscroll-on #cur-ring{opacity:0!important;visibility:hidden!important}';
+      document.head.appendChild(hide);
 
-      bindHoverTargets();
+      /* Custom Luxury Middle-Click Autoscroll Disc with Up/Down Arrows */
+      const disc = document.createElement('div');
+      disc.className = 'autoscroll-disc';
+      disc.setAttribute('aria-hidden', 'true');
+      disc.innerHTML = '<svg viewBox="0 0 24 24"><path class="autoscroll-disc__up" d="M8 7l4-4 4 4"/><circle class="autoscroll-disc__dot" cx="12" cy="12" r="2.2"/><path class="autoscroll-disc__dn" d="M8 17l4 4 4-4"/></svg>';
+      document.body.appendChild(disc);
 
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(loop);
+      let autoScrollActive = false;
+      let autoOriginX = 0;
+      let autoOriginY = 0;
+      let autoCurX = 0;
+      let autoCurY = 0;
+      let autoDownTime = 0;
+      let autoRaf = null;
+
+      let live    = false;
+      let off     = false;
+      let blocked = false;
+
+      const m = { x: -100, y: -100 };
+      const d = { x: -100, y: -100 };
+      const r = { x: -100, y: -100 };
+      let raf = null;
+
+      const show = (state) => {
+        const want = (off || blocked || autoScrollActive) ? false : state;
+        if (want === live) return;
+        live = want;
+        root.classList.toggle('cursor-on', want);
+      };
+      showFn = show;
+
+      let edgeX = 0, edgeY = 0;
+      const measure = () => { edgeX = root.clientWidth; edgeY = root.clientHeight; };
+      measure();
+      window.addEventListener('resize', measure, { passive: true });
+
+      const EDGE = 4;
+      const inGutter = (x, y) => {
+        const hasVertScrollbar = root.scrollHeight > window.innerHeight;
+        return (
+          (window.innerWidth > edgeX && x >= edgeX - EDGE) ||
+          (hasVertScrollbar && x >= window.innerWidth - 15) ||
+          (window.innerHeight > edgeY && y >= edgeY - EDGE)
+        );
+      };
+
+      const tick = () => {
+        measure();
+        d.x = lerp(d.x, m.x, 0.85);  d.y = lerp(d.y, m.y, 0.85);
+        r.x = lerp(r.x, m.x, 0.14);  r.y = lerp(r.y, m.y, 0.14);
+
+        dot.style.transform  = `translate(${d.x.toFixed(2)}px, ${d.y.toFixed(2)}px) translate(-50%,-50%)`;
+        ring.style.transform = `translate(${r.x.toFixed(2)}px, ${r.y.toFixed(2)}px) translate(-50%,-50%)`;
+
+        const settled = Math.abs(m.x - r.x) < 0.1 && Math.abs(m.y - r.y) < 0.1;
+        raf = settled ? null : requestAnimationFrame(tick);
+      };
+
+      const stopAutoScroll = (e) => {
+        if (!autoScrollActive) return;
+        autoScrollActive = false;
+        root.classList.remove('autoscroll-on');
+        root.style.scrollBehavior = '';
+        disc.classList.remove('is-active', 'is-up', 'is-dn');
+        disc.style.transform = `translate(${autoCurX.toFixed(1)}px, ${autoCurY.toFixed(1)}px) translate(-50%, -50%) scale(0.6)`;
+        if (autoRaf) {
+          cancelAnimationFrame(autoRaf);
+          autoRaf = null;
+        }
+        const finalX = (e && typeof e.clientX === 'number') ? e.clientX : autoCurX;
+        const finalY = (e && typeof e.clientY === 'number') ? e.clientY : autoCurY;
+        m.x = finalX; m.y = finalY;
+        d.x = finalX; d.y = finalY;
+        r.x = finalX; r.y = finalY;
+        dot.style.transform  = `translate(${finalX.toFixed(2)}px, ${finalY.toFixed(2)}px) translate(-50%,-50%)`;
+        ring.style.transform = `translate(${finalX.toFixed(2)}px, ${finalY.toFixed(2)}px) translate(-50%,-50%)`;
+        show(true);
+        if (!raf) raf = requestAnimationFrame(tick);
+      };
+
+      const tickAutoScroll = () => {
+        if (!autoScrollActive) return;
+        const dy = autoCurY - autoOriginY;
+        const absDy = Math.abs(dy);
+        const DEADZONE = 8;
+        if (absDy > DEADZONE) {
+          const sign = dy > 0 ? 1 : -1;
+          const speed = Math.min(48, Math.pow((absDy - DEADZONE) / 8.5, 1.35));
+          window.scrollBy({ top: sign * speed, left: 0, behavior: 'instant' });
+          disc.classList.toggle('is-dn', sign > 0);
+          disc.classList.toggle('is-up', sign < 0);
+        } else {
+          disc.classList.remove('is-up', 'is-dn');
+        }
+        autoRaf = requestAnimationFrame(tickAutoScroll);
+      };
+
+      window.addEventListener('mousedown', (e) => {
+        if (e.button === 1) {
+          e.preventDefault();
+          if (autoScrollActive) {
+            stopAutoScroll(e);
+          } else {
+            autoScrollActive = true;
+            autoOriginX = e.clientX;
+            autoOriginY = e.clientY;
+            autoCurX = e.clientX;
+            autoCurY = e.clientY;
+            m.x = e.clientX; m.y = e.clientY;
+            d.x = e.clientX; d.y = e.clientY;
+            r.x = e.clientX; r.y = e.clientY;
+            autoDownTime = performance.now();
+            root.classList.add('autoscroll-on');
+            root.style.scrollBehavior = 'auto';
+            show(false);
+            disc.style.transform = `translate(${autoCurX.toFixed(1)}px, ${autoCurY.toFixed(1)}px) translate(-50%, -50%) scale(1)`;
+            disc.classList.add('is-active');
+            disc.classList.remove('is-up', 'is-dn');
+            if (!autoRaf) autoRaf = requestAnimationFrame(tickAutoScroll);
+          }
+        } else if (autoScrollActive) {
+          e.preventDefault();
+          stopAutoScroll(e);
+        }
+      }, { passive: false });
+
+      window.addEventListener('mouseup', (e) => {
+        if (e.button === 1 && autoScrollActive) {
+          const heldMs = performance.now() - autoDownTime;
+          const movedPx = Math.hypot(e.clientX - autoOriginX, e.clientY - autoOriginY);
+          if (heldMs > 240 && movedPx > 18) {
+            stopAutoScroll(e);
+          }
+        }
+      }, { passive: true });
+
+      window.addEventListener('auxclick', (e) => {
+        if (e.button === 1) e.preventDefault();
+      }, { passive: false });
+
+      window.addEventListener('wheel', () => {
+        if (autoScrollActive) stopAutoScroll();
+      }, { passive: true });
+
+      window.addEventListener('keydown', (e) => {
+        if (autoScrollActive && (e.key === 'Escape' || e.key === 'ArrowUp' || e.key === 'ArrowDown')) {
+          stopAutoScroll();
+        }
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (autoScrollActive) {
+          autoCurX = e.clientX;
+          autoCurY = e.clientY;
+          m.x = e.clientX; m.y = e.clientY;
+          d.x = e.clientX; d.y = e.clientY;
+          r.x = e.clientX; r.y = e.clientY;
+          disc.style.transform = `translate(${autoCurX.toFixed(1)}px, ${autoCurY.toFixed(1)}px) translate(-50%, -50%) scale(1)`;
+          return;
+        }
+        if (e.target && e.target.closest && e.target.closest('[data-cursor-off]')) {
+          blocked = true;
+          show(false);
+          return;
+        }
+        blocked = false;
+        if (off) return;
+        if (inGutter(e.clientX, e.clientY)) { show(false); return; }
+        m.x = e.clientX; m.y = e.clientY;
+        show(true);
+        if (!raf) raf = requestAnimationFrame(tick);
+      }, { passive: true });
+
+      const setState = (el) => {
+        const texty  = el && el.closest ? el.closest(TEXTY) : null;
+        const clicky = !texty && el && el.closest ? el.closest(CLICKY) : null;
+        dot.classList.toggle('is-text', !!texty);
+        ring.classList.toggle('is-text', !!texty);
+        dot.classList.toggle('is-over', !!clicky);
+        ring.classList.toggle('is-over', !!clicky);
+        ring.classList.toggle('is-active', !!clicky);
+
+        if (label) label.textContent = resolveCursorLabel(clicky);
+      };
+      setStateFn = setState;
+
+      const resetCursorState = () => {
+        setState(null);
+        show(false);
+      };
+
+      document.addEventListener('mouseover', (e) => {
+        if (inGutter(e.clientX, e.clientY)) {
+          show(false);
+          return;
+        }
+        if (e.target && e.target.closest && e.target.closest('[data-cursor-off]')) {
+          blocked = true;
+          show(false);
+          return;
+        }
+        blocked = false;
+        setState(e.target);
+        show(true);
+      });
+      document.addEventListener('mouseout', (e) => { if (!e.relatedTarget) resetCursorState(); });
+      document.addEventListener('mouseleave', resetCursorState);
+      document.addEventListener('pointerleave', resetCursorState);
+      window.addEventListener('blur', resetCursorState);
+
+      bindCursorOffFn = () => {
+        document.querySelectorAll('[data-cursor-off]').forEach(el => {
+          if (el._cursorOffBound) return;
+          el._cursorOffBound = true;
+          el.addEventListener('mouseenter', () => { blocked = true; show(false); });
+          el.addEventListener('mouseleave', () => { blocked = false; show(true); });
+        });
+      };
+      bindCursorOffFn();
+
+      window.addEventListener('touchstart', () => {
+        off = true;
+        resetCursorState();
+        hide.remove();
+      }, { once: true, passive: true });
     },
 
-    rebindHovers() { bindHoverTargets(); }
+    rebindHovers() {
+      if (bindCursorOffFn) bindCursorOffFn();
+    },
+
+    refreshTarget(el) {
+      if (setStateFn && el) setStateFn(el);
+    },
+
+    resetState() {
+      if (!dot || !ring) return;
+      dot.classList.remove('is-over', 'is-text');
+      ring.classList.remove('is-over', 'is-text', 'is-active');
+      if (label) label.textContent = '';
+    }
   };
 })();
 
@@ -285,6 +519,16 @@ const Router = (() => {
         curMain.innerHTML = newMain.innerHTML;
       }
 
+      // Sync page-specific overlays outside <main> (#calculator-bar, #video-modal)
+      document.querySelectorAll('#calculator-bar, #video-modal').forEach(el => el.remove());
+      document.body.classList.remove('has-calc-bar');
+      const newCalc = doc.querySelector('#calculator-bar');
+      const newModal = doc.querySelector('#video-modal');
+      if (curMain) {
+        if (newModal) curMain.insertAdjacentElement('afterend', newModal.cloneNode(true));
+        if (newCalc)  curMain.insertAdjacentElement('afterend', newCalc.cloneNode(true));
+      }
+
       // Swap <title>
       document.title = doc.title || document.title;
 
@@ -298,6 +542,9 @@ const Router = (() => {
           link.classList.add('is-active');
         }
       });
+
+      // Reset hover cursor state from clicked link
+      Cursor.resetState();
 
       // Re-init all page observers on fresh content
       initPageModules();
@@ -531,11 +778,9 @@ function initCalculator() {
       }
     });
     const oldTotal = currentTotal;
-    if (total === 0) {
-      bar.classList.remove('is-visible');
-    } else {
-      bar.classList.add('is-visible');
-    }
+    const isVisible = total > 0;
+    bar.classList.toggle('is-visible', isVisible);
+    document.body.classList.toggle('has-calc-bar', isVisible);
     if (total !== oldTotal) {
       animateTo(oldTotal, total);
     }
@@ -544,6 +789,8 @@ function initCalculator() {
   cards.forEach(card => {
     card.addEventListener('click', () => {
       card.classList.toggle('is-selected');
+      card.setAttribute('aria-checked', String(card.classList.contains('is-selected')));
+      Cursor.refreshTarget(card);
       recalculate();
     });
   });
@@ -874,6 +1121,25 @@ function initStickyScroll() {
   const scrollItems = section.querySelectorAll('.scroll-item');
   if (!scrollItems.length) return;
 
+  const isMobile = window.innerWidth <= 900;
+  if (isMobile) {
+    scrollItems.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(18px)';
+      el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+    });
+    const mobileIo = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'none';
+        mobileIo.unobserve(entry.target);
+      });
+    }, { threshold: 0.08 });
+    scrollItems.forEach(el => mobileIo.observe(el));
+    return;
+  }
+
   const io = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       entry.target.style.opacity    = entry.isIntersecting ? '1' : '0.4';
@@ -882,7 +1148,7 @@ function initStickyScroll() {
         : 'translateY(20px) scale(0.98)';
       entry.target.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     });
-  }, { threshold: 0.3 });
+  }, { threshold: 0.15 });
 
   scrollItems.forEach(el => io.observe(el));
 }

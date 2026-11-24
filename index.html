@@ -9,7 +9,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <link rel="stylesheet" href="luxury.css?v=7" />
+  <link rel="stylesheet" href="luxury.css?v=8" />
   <!-- CRITICAL: mobile overrides for the new services grid -->
   <style>
     @media (max-width: 900px) {
@@ -36,8 +36,8 @@
   <div class="noise-overlay" aria-hidden="true"></div>
 
   <!-- ░░ CUSTOM CURSOR ░░ -->
-  <div class="cursor-dot"  aria-hidden="true"></div>
-  <div class="cursor-ring" aria-hidden="true"></div>
+  <span id="cur-ring" aria-hidden="true"><span id="cur-label"></span></span>
+  <span id="cur-dot" aria-hidden="true"></span>
 
   <!-- ░░ PAGE WIPE ░░ -->
   <div class="page-wipe" aria-hidden="true">
@@ -80,10 +80,10 @@
         <a href="studio.html">Studio</a>
         <a href="booking.html">Booking</a>
       </div>
-      <a href="booking.html" class="nav-cta btn-magnetic" data-cursor="hover">
+      <a href="booking.html" class="nav-cta btn-magnetic" data-cursor="Book">
         <span class="btn-magnetic__text">Request Consultation</span>
       </a>
-        <button id="mobile-menu-btn" aria-label="Toggle mobile menu" data-cursor="hover">
+        <button id="mobile-menu-btn" aria-label="Toggle mobile menu" data-cursor="">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -122,8 +122,8 @@
         </p>
 
         <div class="hero__actions fade-up" style="transition-delay:560ms;">
-          <a href="booking.html" class="btn-primary btn-magnetic" data-cursor="hover"><span class="btn-magnetic__text">Begin Your Atelier Journey</span></a>
-          <a href="treatments.html" class="btn-gold btn-magnetic" data-cursor="hover"><span class="btn-magnetic__text">View Treatments</span></a>
+          <a href="booking.html" class="btn-primary btn-magnetic" data-cursor="Book"><span class="btn-magnetic__text">Begin Your Atelier Journey</span></a>
+          <a href="treatments.html" class="btn-gold btn-magnetic" data-cursor="Explore"><span class="btn-magnetic__text">View Treatments</span></a>
         </div>
 
       </div>
@@ -227,7 +227,7 @@
             </div>
 
             <div style="margin-top:var(--space-8);" class="fade-up" style="transition-delay:480ms;">
-              <a href="studio.html" class="btn-primary btn-magnetic" data-cursor="hover">
+              <a href="studio.html" class="btn-primary btn-magnetic" data-cursor="Tour">
                 <span class="btn-magnetic__text">Tour the Atelier Studio</span>
               </a>
             </div>
@@ -262,7 +262,7 @@
         ">
 
           <!-- Card 1 -->
-          <a href="treatments.html" data-cursor="hover" data-touch aria-label="Digital Smile Design — from $3,500" style="
+          <a href="treatments.html" data-cursor="Explore" data-touch aria-label="Digital Smile Design — from $3,500" style="
             flex: 1 1 0;
             min-width: 0;
             height: 340px;
@@ -313,7 +313,7 @@
           </a>
 
           <!-- Card 2 -->
-          <a href="treatments.html" data-cursor="hover" data-touch aria-label="Holistic Whitening — from $5,000" style="
+          <a href="treatments.html" data-cursor="Explore" data-touch aria-label="Holistic Whitening — from $5,000" style="
             flex: 1 1 0;
             min-width: 0;
             height: 340px;
@@ -364,7 +364,7 @@
           </a>
 
           <!-- Card 3 -->
-          <a href="treatments.html" data-cursor="hover" data-touch aria-label="Mastercrafted Veneers — from $28,000" style="
+          <a href="treatments.html" data-cursor="Explore" data-touch aria-label="Mastercrafted Veneers — from $28,000" style="
             flex: 1 1 0;
             min-width: 0;
             height: 340px;
@@ -415,7 +415,7 @@
           </a>
 
           <!-- Card 4 -->
-          <a href="treatments.html" data-cursor="hover" data-touch aria-label="Full-Mouth Reconstruction — from $60,000" style="
+          <a href="treatments.html" data-cursor="Explore" data-touch aria-label="Full-Mouth Reconstruction — from $60,000" style="
             flex: 1 1 0;
             min-width: 0;
             height: 340px;
@@ -469,7 +469,7 @@
 
         <!-- CTA -->
         <div style="text-align:center;margin-top:var(--space-8);" class="fade-up">
-          <a href="treatments.html" class="btn-gold btn-magnetic" data-cursor="hover">
+          <a href="treatments.html" class="btn-gold btn-magnetic" data-cursor="Explore">
             <span class="btn-magnetic__text">Explore All Treatments &amp; Pricing</span>
           </a>
         </div>
@@ -578,7 +578,7 @@
           the full measure of our attention.
         </p>
         <div class="fade-up" style="transition-delay:240ms;">
-          <a href="booking.html" class="btn-gold btn-magnetic" data-cursor="hover">
+          <a href="booking.html" class="btn-gold btn-magnetic" data-cursor="Book">
             <span class="btn-magnetic__text">Apply for a Private Consultation</span>
           </a>
         </div>
@@ -636,14 +636,14 @@
     </div>
   </footer>
 
-  <script src="engine.js?v=5"></script>
+  <script src="engine.js?v=8"></script>
 
   <!-- FULLSCREEN MOBILE MENU -->
   <div class="mobile-overlay" id="mobile-menu" aria-hidden="true" style="background: rgba(253, 252, 248, 0.95); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);">
     <div class="noise-overlay" aria-hidden="true"></div>
     <div class="mobile-overlay__header" style="position: relative; z-index: 10; padding: 2rem; display: flex; justify-content: space-between; align-items: center;">
       <span class="nav-wordmark__name" style="color: var(--espresso); font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.1em;">AURELIA</span>
-      <button class="mobile-close" id="mobile-close" aria-label="Close menu" data-cursor="hover" style="color: var(--espresso); background: none; border: none; cursor: pointer;">
+      <button class="mobile-close" id="mobile-close" aria-label="Close menu" data-cursor="" style="color: var(--espresso); background: none; border: none; cursor: pointer;">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </div>

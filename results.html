@@ -6,13 +6,13 @@
   <meta name="description" content="Aurelia Smile Atelier client results — before and after gallery showcasing mastercrafted veneers, full-mouth reconstructions, and Hollywood smile transformations in Beverly Hills." />
   <meta name="theme-color" content="#FDFCF8" />
   <title>Client Results | Aurelia Smile Atelier</title>
-  <link rel="stylesheet" href="luxury.css" />
+  <link rel="stylesheet" href="luxury.css?v=8" />
 </head>
 <body>
 
   <div class="noise-overlay" aria-hidden="true"></div>
-  <div class="cursor-dot"  aria-hidden="true"></div>
-  <div class="cursor-ring" aria-hidden="true"></div>
+  <span id="cur-ring" aria-hidden="true"><span id="cur-label"></span></span>
+  <span id="cur-dot" aria-hidden="true"></span>
   <div class="page-wipe" aria-hidden="true">
     <div class="page-wipe__panel"></div><div class="page-wipe__panel"></div>
     <div class="page-wipe__panel"></div><div class="page-wipe__panel"></div>
@@ -36,10 +36,10 @@
         <a href="studio.html">Studio</a>
         <a href="booking.html">Booking</a>
       </div>
-      <a href="booking.html" class="nav-cta btn-magnetic" data-cursor="hover">
+      <a href="booking.html" class="nav-cta btn-magnetic" data-cursor="Book">
         <span class="btn-magnetic__text">Request Consultation</span>
       </a>
-        <button id="mobile-menu-btn" aria-label="Toggle mobile menu" data-cursor="hover">
+        <button id="mobile-menu-btn" aria-label="Toggle mobile menu" data-cursor="">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -89,6 +89,7 @@
           <button
             class="play-btn"
             data-modal-trigger
+            data-cursor="Film"
             aria-label="Watch the Aurelia Atelier documentary — Inside the Art of the Perfect Smile"
           >
             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -273,7 +274,7 @@
         </div>
 
         <div style="text-align:center;margin-top:var(--space-10);" class="fade-up">
-          <a href="booking.html" class="btn-primary btn-magnetic" data-cursor="hover">
+          <a href="booking.html" class="btn-primary btn-magnetic" data-cursor="Book">
             <span class="btn-magnetic__text">Begin Your Transformation</span>
           </a>
           </div>
@@ -291,7 +292,7 @@
           <path d="M1.5 1.5l15 15M16.5 1.5l-15 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
       </button>
-      <div class="modal-video-wrap">
+      <div class="modal-video-wrap" data-cursor-off>
         <!-- In a live deployment, replace src with an actual video URL -->
         <video
           controls
@@ -355,14 +356,14 @@
     </div>
   </footer>
 
-  <script src="engine.js"></script>
+  <script src="engine.js?v=8"></script>
 
   <!-- FULLSCREEN MOBILE MENU -->
   <div class="mobile-overlay" id="mobile-menu" aria-hidden="true" style="background: rgba(253, 252, 248, 0.95); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);">
     <div class="noise-overlay" aria-hidden="true"></div>
     <div class="mobile-overlay__header" style="position: relative; z-index: 10; padding: 2rem; display: flex; justify-content: space-between; align-items: center;">
       <span class="nav-wordmark__name" style="color: var(--espresso); font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.1em;">AURELIA</span>
-      <button class="mobile-close" id="mobile-close" aria-label="Close menu" data-cursor="hover" style="color: var(--espresso); background: none; border: none; cursor: pointer;">
+      <button class="mobile-close" id="mobile-close" aria-label="Close menu" data-cursor="" style="color: var(--espresso); background: none; border: none; cursor: pointer;">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </div>
